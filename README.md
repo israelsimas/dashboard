@@ -1,10 +1,10 @@
-# dashboard
+# Dashboard
 Dashboard to show statistics data
 
 ## Objectives to Study
 
-- MongoDB (reforce)
-- NodeJs (reforce)
+- MongoDB (reinforce)
+- NodeJs (reinforce)
     - Static page
     - REST API (express module)
     - Collect periodic data
