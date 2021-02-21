@@ -17,8 +17,8 @@ const courses = [
 ];
 
 app.use(express.json());
-app.use('/static', express.static('static_files'));
-app.use(express.static('static_files'));
+app.use('/static', express.static('public'));
+app.use(express.static('public'));
 
 app.get('/api/courses', (req, res) => {
     res.send(courses);
