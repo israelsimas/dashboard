@@ -4,7 +4,6 @@ const coursesService = require('../service/coursesService');
 const Joi = require('joi');
 
 router.get('/api/courses', async (req, res) => {
-
 	const courses = await coursesService.getCourses();
 	res.json(courses);
 });

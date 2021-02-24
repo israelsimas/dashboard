@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
 const Course = require("../models/courses");
+const dbHost = process.env.DB_HOST || "192.168.0.105";
+const dbCollection = process.env.DB_COLLECTION || "dashboard";
 
 //Set up default mongoose connection
-let mongoDB = 'mongodb://192.168.0.105/dashboard';
+let mongoDB = `mongodb://${dbHost}/${dbCollection}`;
 mongoose.connect(mongoDB, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }, () =>
     console.log("connected to DB")
 );
