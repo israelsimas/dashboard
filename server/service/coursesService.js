@@ -1,21 +1,21 @@
 const coursesData = require('../data/coursesData');
 
-exports.getCourses = function () {
-	return coursesData.getCourses();
+exports.getCourses = async function () {
+	return await coursesData.getCourses();
 };
 
-exports.getCourse = function (id) {
+exports.getCourse = async function (id) {
 	return coursesData.getCourse(id);
 };
 
-exports.saveCourse = function (course) {
+exports.saveCourse = async function (course) {
 	return coursesData.saveCourse(course);
 };
 
-exports.updateCourse = function (id, course) {
+exports.updateCourse = async function (id, course) {
 	return coursesData.updateCourse(id, course);
 };
 
-exports.deleteCourse = function (id) {
+exports.deleteCourse = async function (id) {
 	return coursesData.deleteCourse(id);
 };

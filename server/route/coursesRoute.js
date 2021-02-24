@@ -3,17 +3,18 @@ const router = express.Router();
 const coursesService = require('../service/coursesService');
 const Joi = require('joi');
 
-router.get('/api/courses', (req, res) => {
-	const courses = coursesService.getCourses();
+router.get('/api/courses', async (req, res) => {
+
+	const courses = await coursesService.getCourses();
 	res.json(courses);
 });
 
-router.get('/api/courses/:id', (req, res) => {
-	const course = coursesService.getCourse(req.params.id);
+router.get('/api/courses/:id', async (req, res) => {
+	const course = await coursesService.getCourse(req.params.id);
 	res.json(course);
 });
 
-router.post('/api/courses', (req, res) => {
+router.post('/api/courses', async (req, res) => {
 
 	const course = req.body;
     const schema = Joi.object({ 
@@ -25,11 +26,11 @@ router.post('/api/courses', (req, res) => {
         res.status(400).send(result.error.details[0].message);
     }
 	
-	const newCourse = coursesService.saveCourse(course);
+	const newCourse = await coursesService.saveCourse(course);
 	res.json(newCourse);	
 });
 
-router.put('/api/courses/:id', (req, res) => {
+router.put('/api/courses/:id', async (req, res) => {
 
 	const course = req.body;
     const schema = Joi.object({ 
@@ -41,13 +42,13 @@ router.put('/api/courses/:id', (req, res) => {
 		return res.status(400).send(result.error.details[0].message);
 	}
 	
-	coursesService.updateCourse(req.params.id, course);
+	await coursesService.updateCourse(req.params.id, course);
 	res.end();
 });
 
-router.delete('/api/courses/:id', (req, res) => {
+router.delete('/api/courses/:id', async (req, res) => {
 
-	coursesService.deleteCourse(req.params.id);
+	await coursesService.deleteCourse(req.params.id);
 	res.end();
 });
 

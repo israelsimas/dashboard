@@ -1,70 +1,61 @@
-// const database = require('../infra/database');
+var mongoose = require('mongoose');
+const Course = require("../models/courses");
 
-const Joi = require('joi');
+//Set up default mongoose connection
+let mongoDB = 'mongodb://192.168.0.105/dashboard';
+mongoose.connect(mongoDB, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }, () =>
+    console.log("connected to DB")
+);
 
-const sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database('data/database.sql', (err) => {
-    if (err) {
-        console.error(err.message);
-    }
-    console.log('Connected to the database.');
-});
+//Get the default connection
+const connection = mongoose.connection;
 
-const courses = [
-    {id: 1, name: "course1"},
-    {id: 2, name: "course2"},
-    {id: 3, name: "course3"},
-];
+//Bind connection to error event (to get notification of connection errors)
+connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-exports.getCourses = function () {
-	// return database.query('select * from blog.post');
-    return courses;
+exports.getCourses = async (req, res) => {
+	try {
+		const courses = await Course.find();
+		return courses;
+	} catch (err) {
+		return { message: err };
+	}
+  };
+
+exports.getCourse = async function (id) {
+
+	try {
+        const course = await Course.findById(id);
+		return course;
+	} catch (err) {
+		return { message: err };
+	}
 };
 
-exports.getCourse = function (id) {
-	// return database.oneOrNone('select * from blog.post where id = $1', [id]);
+exports.saveCourse = async function (newCourse) {
 
-    const course = courses.find(c => c.id === parseInt(id));
-    if (course) {
-        return course;
-    } else {
-        return 'The course with the given ID does not exist!';
-    }
+    const course = new Course({ name: newCourse.name });
+	try {
+        const result = await course.save();
+        const resultCourse = await Course.findById(result.id);
+		return resultCourse;
+	} catch (err) {
+		return { message: err };
+	}
 };
 
-exports.saveCourse = function (newCourse) {
-	// return database.one('insert into COURSE (name) values ($1) returning *', [course.name]);
-
-    const course = {
-        id: courses.length + 1,
-        name: newCourse.name
-    }
-    courses.push(course);
-    
-    return course;
+exports.updateCourse = async function (id, newCourse) {
+	try {
+        const result = await Course.findByIdAndUpdate({ _id: id }, { name: newCourse.name });
+	} catch (err) {
+		return { message: err };
+	}
 };
 
-exports.updateCourse = function (id, newCourse) {
-	// return database.none('update blog.post set title = $1, content = $2 where id = $3', [post.title, post.content, id]);
-
-    const course = courses.find(c => c.id === parseInt(id));
-    if (!course) {
-        // res.status(404).send('The course with the given ID does not exist!');
-        return;
-    }
-
-    course.name = newCourse.name;
-};
-
-exports.deleteCourse = function (id) {
-	// return database.none('delete from blog.post where id = $1', [id]);
-
-    const course = courses.find(c => c.id === parseInt(id));
-    if (!course) {
-        // return res.status(404).send('The course with the given ID does not exist!');
-        return;
-    }
-
-    const index = courses.indexOf(course);
-    courses.splice(index, 1);
+exports.deleteCourse = async function (id) {
+	try {
+        const result = await Course.remove({ _id: id });
+	} catch (err) {
+		return { message: err };
+	}
 };
