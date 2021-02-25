@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const coursesService = require('../service/coursesService');
+const coordinatesService = require('../service/coordinatesService');
 const Joi = require('joi');
 
 router.get('/api/courses', async (req, res) => {
@@ -49,6 +50,12 @@ router.delete('/api/courses/:id', async (req, res) => {
 
 	await coursesService.deleteCourse(req.params.id);
 	res.end();
+});
+
+
+router.get('/api/coordinates', async (req, res) => {
+	const coordinates = await coordinatesService.getCoordinates();
+	res.json(coordinates);
 });
 
 module.exports = router;

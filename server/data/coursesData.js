@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 const Course = require("../models/courses");
+const Coordinate = require("../models/coordinates"); // TODO
 const dbHost = process.env.DB_HOST || "192.168.0.105";
 const dbCollection = process.env.DB_COLLECTION || "dashboard";
 
