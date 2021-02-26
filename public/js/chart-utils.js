@@ -11,29 +11,21 @@ function updateCoordinates() {
 			datasets: [{
 				label: 'Price',
 				fill: false,
-				backgroundColor: 'rgb(255, 99, 132)',
-				borderColor: 'rgb(255, 99, 132)',
-				data: coordinatesY,
-				
-			}, {
-				label: 'Budget',
-				fill: false,
 				backgroundColor: 'rgb(54, 162, 235)',
 				borderColor: 'rgb(54, 162, 235)',
-				data: [
-					getCoordY(9) + 2,
-					getCoordY(8) + 2,
-					getCoordY(7) + 2,
-					getCoordY(6) + 2,
-					getCoordY(5) + 2,
-					getCoordY(4) + 2,
-					getCoordY(3) + 2,
-					getCoordY(2) + 2,
-					getCoordY(1) + 2,
-					getCoordY(0) + 2
-				],
+				data: coordinatesY,
+				borderWidth: 3
 			}]
 		},
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			}
+		}
 	};
 
 	var ctx = document.getElementById('canvas').getContext('2d');
