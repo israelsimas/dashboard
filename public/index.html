@@ -17,6 +17,15 @@
      <link href="css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
      <!-- CSS Just for demo purpose, don't include it in your project -->
      <link href="css/demo.css" rel="stylesheet" />
+     <script src=js/Chart.min.js></script>
+     <script src="js/chart-utils.js"></script>
+     <style>
+		canvas{
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+	</style>
  </head>
  
  <body>
@@ -182,9 +191,9 @@
                                      <h4 class="card-title">Users Behavior</h4>
                                      <p class="card-category">24 Hours performance</p>
                                  </div>
-                                 <div class="card-body ">
-                                     <div id="chartHours" class="ct-chart"></div>
-                                 </div>
+                                 <div class="card-body" style="width:100%;">
+                                    <canvas id="canvas"></canvas>
+                                </div>
                                  <div class="card-footer ">
                                      <div class="legend">
                                          <i class="fa fa-circle text-info"></i> Open
