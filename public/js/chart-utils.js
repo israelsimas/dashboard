@@ -14,6 +14,7 @@ window.chartColors = {
 };
 
 function updateCoordinates() {
+
 	var config = {
 		type: 'line',
 		data: {
@@ -42,16 +43,16 @@ function updateCoordinates() {
 	window.mychart = new Chart(ctx, config);
 }
 
-function updatePercent() {
+function updatePercent(dataPercent) {
+
+	var namePercent = ["resolved", "opened", "unsolved"];
+	var dataArray = [dataPercent.resolved, dataPercent.opened, dataPercent.unsolved];
+
 	var config = {
 		type: 'pie',
 		data: {
 			datasets: [{
-				data: [
-					10,
-					16,
-					30,
-				],
+				data: dataArray,
 				backgroundColor: [
 					window.chartColors.red,
 					window.chartColors.orange,
@@ -59,11 +60,7 @@ function updatePercent() {
 				],
 				label: 'Dataset 1'
 			}],
-			labels: [
-				'Red',
-				'Orange',
-				'Yellow'
-			]
+			labels: namePercent
 		},
 		options: {
 			responsive: true
@@ -90,10 +87,10 @@ function loadCoordinates() {
 }
 
 function loadPercent() {
-	fetch('http://127.0.0.1:3000/api/coordinates')
+	fetch('http://127.0.0.1:3000/api/percents')
 	.then(response => response.json())
 	.then(data => {
-		updatePercent();
+		updatePercent(data[0]);
 	})
 	.catch(error => console.error(error));
 }
