@@ -72,7 +72,7 @@ function updatePercent(dataPercent) {
 }
 
 function loadCoordinates() {
-	fetch('http://127.0.0.1:3000/api/coordinates')
+	fetch('/api/coordinates')
 	.then(response => response.json())
 	.then(data => {
 		for (var i = 0; i < data.length; i++) {
@@ -87,7 +87,7 @@ function loadCoordinates() {
 }
 
 function loadPercent() {
-	fetch('http://127.0.0.1:3000/api/percents')
+	fetch('/api/percents')
 	.then(response => response.json())
 	.then(data => {
 		updatePercent(data[0]);
